@@ -1,18 +1,56 @@
 ---
 const { data } = Astro.props;
-
-console.log('A', data);
-
+const getMonth = month => {
+    switch(month) {
+        case 0:
+            return 'Jan';
+            break;
+        case 1:
+            return 'Fev';
+            break;
+        case 2:
+            return 'Mar';
+            break;
+        case 3:
+            return 'Apr';
+            break;
+        case 4:
+            return 'May';
+            break;
+        case 5:
+            return 'Jun';
+            break;          
+        case 6: 
+            return 'Jul';
+            break;  
+        case 7: 
+            return 'Aug';
+            break; 
+        case 8: 
+            return 'Sep';
+            break;          
+        case 9: 
+            return 'Oct';
+            break; 
+        case 10: 
+            return 'Nov';
+            break; 
+        case 11: 
+            return 'Dec';
+            break; 
+        default:
+            break;
+    }
+}
 const _date = new Date(data);
-
-console.log('B', _date);
-
 const day = _date.getDate() > 10 ? _date.getDate() : `0${_date.getDate()}`;
+const month = getMonth(_date.getMonth());
 const year = _date.getFullYear();
 ---
 
 <div class="date">
     <h4 class="day"> { day } </h4>
+    <p class="month"> { month } </p>
     <p class="year"> { year } </p>
 </div>
 

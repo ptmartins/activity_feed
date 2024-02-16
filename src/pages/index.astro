@@ -7,12 +7,16 @@ import Date from '../components/Date.astro';
 const logs = data.response.logs;
 const groupedLogs = logs.reduce((acc, obj) => {
     const date = obj.ModifiedFormatDate; // Assuming date is a property in each data object
-    if (!acc[date]) {
-      acc[date] = [];
+	const splits = date.split('/');
+	const result = `${splits[1]}/${splits[0]}/${splits[2]}`; 
+
+    if (!acc[result]) {
+      acc[result] = [];
     }
-    acc[date].push(obj);
+    acc[result].push(obj);
     return acc;
 }, {});
+
 
 console.log(groupedLogs);
 ---
