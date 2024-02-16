@@ -1,0 +1,60 @@
+---
+import data from '../data/activity.json';
+import Layout from '../layouts/Layout.astro';
+import Activity from '../components/Activity.astro';
+import Date from '../components/Date.astro';
+
+const logs = data.response.logs;
+const groupedLogs = logs.reduce((acc, obj) => {
+    const date = obj.ModifiedFormatDate; // Assuming date is a property in each data object
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(obj);
+    return acc;
+}, {});
+
+console.log(groupedLogs);
+---
+
+<Layout title="Activity Feed">
+	<h1 class="title">Activity feed</h1>
+	<div class="logs">
+		<!-- { logs.map(log => <Activity data={ log } />) } -->
+		{ Object.keys(groupedLogs).map(key => {
+			return(
+				<div class="logs__group">
+					<Date data={ key } />
+					<div class="group">
+						{ groupedLogs[key].map(item => <Activity data={ item } />) }	
+					</div>
+				</div>
+			)}
+		)}
+	</div>
+</Layout>
+
+
+<style lang="less">
+	
+	.title {
+		font-size: 2.4rem;
+		margin-bottom: 4.5rem;
+	}
+
+	.logs__group {
+		align-items: flex-start;
+		display: flex;
+		margin-block-end: 3rem;
+	}
+
+	.date {
+		margin-block-start: .75rem;
+	}
+
+	.group {
+		flex-grow: 1;
+		margin-inline-start: 4.5rem;
+	}
+
+</style>

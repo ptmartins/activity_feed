@@ -1,0 +1,34 @@
+---
+const { data } = Astro.props;
+
+console.log('A', data);
+
+const _date = new Date(data);
+
+console.log('B', _date);
+
+const day = _date.getDate() > 10 ? _date.getDate() : `0${_date.getDate()}`;
+const year = _date.getFullYear();
+---
+
+<div class="date">
+    <h4 class="day"> { day } </h4>
+    <p class="year"> { year } </p>
+</div>
+
+
+<style lang="less">
+
+    .date {
+        text-align: center;
+    }
+
+    .day {
+        font-size: 2.4rem;
+    }
+
+    .year {
+        opacity: .75; 
+    }
+
+</style>

@@ -1,0 +1,139 @@
+---
+import { Icon } from 'astro-icon/components';
+import thumbnail from '../images/no_imagepng.png';
+
+const { data } = Astro.props;
+let icon = null;
+
+const getIconClass = type => {
+    switch(type) {
+        case 'delete':
+            icon = 'mdi:delete'; 
+            return true;
+            break;
+        case 'edit':
+            icon = 'mdi:edit'
+            return true;
+            break;
+        default:
+            break;
+    }
+}
+---
+
+<div class="activity" data-id={ data.HistoryID }>  
+    <i class={ data.Type ? `icon icon--${data.Type}` : 'icon'}>
+        { getIconClass(data.Type) && <Icon name={ icon } /> }
+    </i>
+    <div class="content">
+        <div class="thumbnail">
+            <img src="" alt="">
+        </div>
+        <div class="details">
+            <h2 class="title"> { data.RecordTitle } </h2>
+            <div class="time">
+                <span class="time"> { data.ModifiedFormatTime } </span>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="btn btn--refresh">
+                <Icon name="mdi:refresh" />
+            </button>
+            <div class="context-menu">
+                <Icon name="mdi:dots-vertical" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style lang="less">
+
+    .activity {
+        background-color: #fff;
+        border: 1px solid #c3cfde;
+        border-radius: 6px;
+        margin-block-end: .75rem;
+        padding-block: 1.5rem;
+        padding-inline: 2rem 1.5rem;
+        position: relative;
+    }
+
+    .icon {
+        align-items: center;
+        background-color: #fff;
+        border: 1px solid #c3cfde;
+        border-radius: 6px;
+        display: flex;
+        font-size: 1.2rem;
+        height: 40px;
+        inset-block-start: 50%;
+        inset-inline-start: -20px;
+        justify-content: center;
+        position: absolute;
+        transform: translateY(-50%);
+        width: 40px;
+
+        &--delete {
+            color: rgb(240, 46, 16);
+        }
+
+        &--edit {
+            color: rgb(56, 186, 56);
+        }
+    }
+
+    .content {
+        align-items: flex-start;
+        display: flex;
+        width: 100%;
+    }
+
+    .thumbnail {
+        aspect-ratio: 16 / 9;
+        background-color: #b2becd;
+        border-radius: 6px;
+        margin-inline-end: 1.5rem;
+        width: 180px;
+    }
+
+    .title {
+        font-size: 1.4rem;
+    }
+
+    .time {
+        display: flex;
+        flex-direction: column;
+        opacity: .75;
+    }
+
+    .actions {
+        align-items: center;
+        display: flex;
+        margin-inline-start: auto;
+    }
+
+    .btn--refresh {
+        background-color: #e6e6e6;
+        border: 0;
+        border-radius: 6px;
+        font-size: 1.2rem;
+        height: 32px;
+        margin-inline-end: .75rem;
+        width: 32px;
+    }
+
+    .context-menu {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    .btn--refresh,
+    .context-menu {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+    }
+
+</style>
