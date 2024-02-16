@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import thumbnail from '../images/no_imagepng.png';
+import noMediaThumb from '../images/no_media_thumb.png';
 
 const { data } = Astro.props;
 let icon = null;
@@ -27,10 +27,11 @@ const getIconClass = type => {
     </i>
     <div class="content">
         <div class="thumbnail">
-            <img src="" alt="">
+            <img src={ noMediaThumb.src } alt="">
         </div>
         <div class="details">
             <h2 class="title"> { data.RecordTitle } </h2>
+            <span class="user"> { data.UserEmail } </span>
             <div class="time">
                 <span class="time"> { data.ModifiedFormatTime } </span>
             </div>
@@ -91,10 +92,16 @@ const getIconClass = type => {
 
     .thumbnail {
         aspect-ratio: 16 / 9;
-        background-color: #b2becd;
+        background-color: #eeeeee;
         border-radius: 6px;
         margin-inline-end: 1.5rem;
         width: 180px;
+
+        img {
+            height: 100%;
+            object-fit: contain;
+            width: 100%;
+        }
     }
 
     .title {
